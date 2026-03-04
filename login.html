@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prijava | PixelStudio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #00d2ff; --dark: #030712; --glass: rgba(255, 255, 255, 0.03); }
+        body { background: var(--dark); color: white; font-family: 'Outfit', sans-serif; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .login-box { background: var(--glass); backdrop-filter: blur(20px); padding: 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 400px; animation: fadeIn 0.8s forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .form-control { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 15px; padding: 12px; }
+        .form-control:focus { background: rgba(255,255,255,0.08); border-color: var(--primary); box-shadow: none; color: white; }
+        .btn-pixel { background: var(--primary); color: #000; font-weight: 700; border: none; border-radius: 15px; width: 100%; padding: 12px; transition: 0.3s; margin-top: 10px; }
+        .error-msg { color: #ff4d4d; font-size: 0.85rem; margin-top: 5px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2 class="fw-bold mb-4 text-center">Dobrodošli <span style="color:var(--primary)">Nazad</span></h2>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label class="small mb-2 opacity-50">Email adresa</label>
+                <input type="text" id="emailInput" class="form-control" placeholder="ime@gmail.com" required>
+                <div id="emailError" class="error-msg">Email nije ispravan (mora biti @gmail.com).</div>
+            </div>
+            <div class="mb-4">
+                <label class="small mb-2 opacity-50">Lozinka</label>
+                <input type="password" id="sifraInput" class="form-control" placeholder="••••••••" required>
+                <div id="sifraError" class="error-msg"></div>
+            </div>
+            <button type="submit" class="btn-pixel">Prijavi se</button>
+            <div class="text-center mt-4">
+                <a href="index.html" class="text-white text-decoration-none small opacity-50">← Nazad na početnu</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('emailInput').value;
+            const sifra = document.getElementById('sifraInput').value;
+            const emailError = document.getElementById('emailError');
+            const sifraError = document.getElementById('sifraError');
+            
+            let valid = true;
+
+            // Logika za Email
+            if (!email.endsWith("@gmail.com")) {
+                emailError.style.display = 'block';
+                valid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            // Logika za Šifru
+            if (sifra.length < 8) {
+                sifraError.innerText = "Sifra je prekratka!";
+                sifraError.style.display = 'block';
+                valid = false;
+            } else if (sifra.length > 16) {
+                sifraError.innerText = "Sifra je predugacka!";
+                sifraError.style.display = 'block';
+                valid = false;
+            } else {
+                sifraError.style.display = 'none';
+            }
+
+            // Ako je sve ispravno (kao u Pythonu), vodi na chat
+            if (valid) {
+                window.location.href = "chat.html";
+            }
+        });
+    </script>
+</body>
+</html>

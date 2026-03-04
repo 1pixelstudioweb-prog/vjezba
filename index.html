@@ -18,67 +18,26 @@
         .nav-link:hover { color: var(--primary) !important; }
         .hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding-top: 100px; }
         .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; line-height: 1.1; background: linear-gradient(to bottom, #fff 40%, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .feature-card { background: var(--glass); border: 1px solid var(--border); padding: 40px; border-radius: 32px; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); height: 100%; }
-        .feature-card:hover { transform: translateY(-15px); border-color: var(--primary); background: rgba(255, 255, 255, 0.05); }
         .btn-pixel { background: #fff; color: #000; padding: 16px 40px; border-radius: 100px; font-weight: 700; text-decoration: none; transition: 0.4s; display: inline-block; }
-        .btn-pixel:hover { transform: scale(1.05); background: var(--primary); color: #fff; }
-        .work-item { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 16/10; }
-        .work-img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
-        .work-item:hover .work-img { transform: scale(1.1); filter: brightness(0.6); }
-        footer { padding: 80px 0; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
     <div class="blob" id="blob1" style="top: -10%; left: -10%;"></div>
-    <div class="blob" id="blob2" style="bottom: -10%; right: -10%; background: radial-gradient(circle, rgba(0, 210, 255, 0.1) 0%, transparent 70%);"></div>
-
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
         <div class="container">
-            <a class="navbar-brand text-white" href="index.html">PIXEL<span style="color:var(--primary)">.</span>STUDIO</a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand text-white" href="/">PIXEL<span style="color:var(--primary)">.</span>STUDIO</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto gap-4 align-items-center">
-                    <li class="nav-item"><a class="nav-link text-white" href="#servisi">Usluge</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#projekti">Projekti</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#kontakt">Kontakt</a></li>
-                    <li class="nav-item"><a href="login.html" class="btn btn-outline-primary rounded-pill px-4">Login</a></li>
+                    <li class="nav-item"><a href="/login" class="btn btn-outline-primary rounded-pill px-4">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-
     <section class="hero text-center">
         <div class="container" data-aos="zoom-out">
             <h1 class="mb-4">DIZAJN KOJI <br> PRAVI RAZLIKU.</h1>
-            <p class="lead text-secondary mb-5 mx-auto" style="max-width: 700px;">Vrhunski digitalni studio koji transformiše vaše ideje u stvarnost.</p>
-            <div class="d-flex flex-wrap justify-content-center gap-3">
-                <a href="#projekti" class="btn-pixel">Vidi naše radove</a>
-                <a href="login.html" class="btn btn-outline-light rounded-pill px-5 py-3">Započni Projekat</a>
-            </div>
+            <a href="/login" class="btn-pixel">Započni Projekat</a>
         </div>
     </section>
-
-    <footer id="kontakt" class="text-center">
-        <div class="container" data-aos="fade-up">
-            <h2 class="display-3 fw-bold mb-4">Imaš ideju?</h2>
-            <p class="text-secondary mb-4">Piši nam na: 1pixelstudioweb@gmail.com</p>
-            <a href="login.html" class="text-white fs-2"><i class="fa-solid fa-message"></i></a>
-            <p class="mt-4 text-secondary">&copy; 2026 PixelStudio. Sva prava zadržana.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 800, once: true });
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX - window.innerWidth / 2) / 25;
-            const y = (e.clientY - window.innerHeight / 2) / 25;
-            document.getElementById('blob1').style.transform = `translate(${x}px, ${y}px)`;
-            document.getElementById('blob2').style.transform = `translate(${-x}px, ${-y}px)`;
-        });
-    </script>
 </body>
 </html>

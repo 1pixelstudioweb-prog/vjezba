@@ -1,149 +1,177 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prijava | PixelStudio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | PixelStudio</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
 
-  <style>
-    :root { --primary: #00d2ff; --dark: #030712; --glass: rgba(255, 255, 255, 0.03); }
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --dark: #030712;
+            --glass: rgba(255,255,255,0.03);
+        }
 
-    body {
-      background: var(--dark);
-      color: white;
-      font-family: 'Outfit', sans-serif;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark);
+            color: white;
+        }
 
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 3px solid var(--glass);
-      border-top-color: var(--primary);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      display: none;
-    }
+        /* SIDEBAR */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+        }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+        .sidebar h3 {
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
 
-    .login-box {
-      background: var(--glass);
-      backdrop-filter: blur(20px);
-      padding: 40px;
-      border-radius: 30px;
-      border: 1px solid rgba(255,255,255,0.1);
-      width: 100%;
-      max-width: 400px;
-      transform: translateY(20px);
-      opacity: 0;
-      animation: fadeIn 0.8s forwards 0.5s;
-    }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
 
-    @keyframes fadeIn { to { transform: translateY(0); opacity: 1; } }
+        .sidebar a:hover {
+            background: rgba(255,255,255,0.05);
+            opacity: 1;
+        }
 
-    .form-control {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: white;
-      border-radius: 15px;
-      padding: 12px;
-    }
+        /* MAIN */
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
 
-    .form-control:focus {
-      background: rgba(255,255,255,0.08);
-      border-color: var(--primary);
-      box-shadow: none;
-      color: white;
-    }
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 20px;
+        }
 
-    .btn-pixel {
-      background: var(--primary);
-      color: #000;
-      font-weight: 700;
-      border: none;
-      border-radius: 15px;
-      width: 100%;
-      padding: 12px;
-      transition: 0.3s;
-    }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
 
-    .btn-pixel:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-    }
+        .card-box {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 20px;
+            transition: 0.3s;
+        }
 
-    .loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-  </style>
+        .card-box:hover {
+            transform: translateY(-5px);
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .in-progress { background: #facc15; color: black; }
+        .done { background: #4ade80; color: black; }
+
+    </style>
 </head>
 
 <body>
 
-  <div class="login-box" id="loginBox">
-    <h2 class="fw-bold mb-4 text-center">Dobrodošli <span style="color:var(--primary)">Nazad</span></h2>
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h3>PixelStudio</h3>
+    <a href="#">Dashboard</a>
+    <a href="#">Projekti</a>
+    <a href="#">Poruke</a>
+    <a href="#">Fajlovi</a>
+    <a href="#">Plaćanja</a>
+    <a href="#">Postavke</a>
+    <a href="login.html">Logout</a>
+</div>
 
-    <form id="loginForm">
-      <div class="mb-3">
-        <label class="small mb-2 opacity-50">Korisničko ime ili Email</label>
-        <input type="text" class="form-control" id="email" placeholder="admin@pixelstudio.com" required>
-      </div>
+<!-- MAIN -->
+<div class="main">
 
-      <div class="mb-4">
-        <label class="small mb-2 opacity-50">Lozinka</label>
-        <input type="password" class="form-control" id="password" placeholder="••••••••" required>
-      </div>
+    <h2 class="fw-bold mb-4">Dashboard</h2>
 
-      <button type="submit" class="btn-pixel">Prijavi se</button>
+    <!-- CARDS -->
+    <div class="cards">
+        <div class="card-box">
+            <small class="opacity-50">Aktivni projekti</small>
+            <h3>3</h3>
+        </div>
 
-      <div class="text-center mt-4">
-        <a href="index.html" class="text-white text-decoration-none small opacity-50">← Nazad na početnu</a>
-      </div>
-    </form>
-  </div>
+        <div class="card-box">
+            <small class="opacity-50">Završeni</small>
+            <h3>5</h3>
+        </div>
 
-  <!-- LOADING -->
-  <div class="loading" id="loading" style="display:none;">
-    <div class="spinner"></div>
-    <span class="opacity-50">Prijavljivanje...</span>
-  </div>
+        <div class="card-box">
+            <small class="opacity-50">Poruke</small>
+            <h3>2 nove</h3>
+        </div>
+    </div>
 
-  <script>
-    const form = document.getElementById('loginForm');
-    const loginBox = document.getElementById('loginBox');
-    const loading = document.getElementById('loading');
+    <!-- PROJECTS -->
+    <div class="glass">
+        <h5 class="fw-bold">Projekti</h5>
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+        <table>
+            <tr>
+                <th>Naziv</th>
+                <th>Status</th>
+                <th>Rok</th>
+            </tr>
+            <tr>
+                <td>Redizajn sajta</td>
+                <td><span class="status in-progress">U izradi</span></td>
+                <td>20 Mar 2026</td>
+            </tr>
+            <tr>
+                <td>E-commerce</td>
+                <td><span class="status done">Završeno</span></td>
+                <td>10 Mar 2026</td>
+            </tr>
+        </table>
+    </div>
 
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      // Fake login (frontend only)
-      if(email === "admin@pixelstudio.com" && password === "1234") {
-        loginBox.style.display = 'none';
-        loading.style.display = 'flex';
-
-        setTimeout(() => {
-          window.location.href = "dashboard.html";
-        }, 1500);
-      } else {
-        alert("Pogrešan email ili lozinka");
-      }
-    });
-  </script>
+</div>
 
 </body>
 </html>
-

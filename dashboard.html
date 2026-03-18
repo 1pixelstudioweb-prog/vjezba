@@ -3,184 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | PixelStudio</title>
+  <title>Prijava | PixelStudio</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --primary: #00d2ff;
-      --dark: #030712;
-      --glass: rgba(255,255,255,0.03);
-    }
-
-    * { box-sizing: border-box; }
+    :root { --primary: #00d2ff; --dark: #030712; --glass: rgba(255, 255, 255, 0.03); }
 
     body {
-      margin: 0;
-      font-family: 'Outfit', sans-serif;
       background: var(--dark);
       color: white;
-      display: flex;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 240px;
+      font-family: 'Outfit', sans-serif;
       height: 100vh;
-      background: var(--glass);
-      backdrop-filter: blur(20px);
-      border-right: 1px solid rgba(255,255,255,0.1);
-      padding: 25px;
-    }
-
-    .sidebar h3 {
-      font-weight: 700;
-      margin-bottom: 30px;
-    }
-
-    .sidebar a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      padding: 10px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      opacity: 0.7;
-      transition: 0.2s;
-    }
-
-    .sidebar a:hover {
-      background: rgba(255,255,255,0.05);
-      opacity: 1;
-    }
-
-    /* MAIN */
-    .main {
-      flex: 1;
-      padding: 30px;
-    }
-
-    .header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 30px;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    .glass-box {
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--glass);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .login-box {
       background: var(--glass);
       backdrop-filter: blur(20px);
+      padding: 40px;
+      border-radius: 30px;
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 20px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .card-box {
-      background: var(--glass);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 20px;
-    }
-
-    table {
       width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
+      max-width: 400px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeIn 0.8s forwards 0.5s;
     }
 
-    th, td {
+    @keyframes fadeIn { to { transform: translateY(0); opacity: 1; } }
+
+    .form-control {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+      border-radius: 15px;
       padding: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
-    .status {
-      padding: 5px 10px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 600;
+    .form-control:focus {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--primary);
+      box-shadow: none;
+      color: white;
     }
 
-    .in-progress { background: #facc15; color: black; }
-    .done { background: #4ade80; color: black; }
+    .btn-pixel {
+      background: var(--primary);
+      color: #000;
+      font-weight: 700;
+      border: none;
+      border-radius: 15px;
+      width: 100%;
+      padding: 12px;
+      transition: 0.3s;
+    }
 
+    .btn-pixel:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+    }
+
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <h3>PixelStudio</h3>
-    <a href="#">Dashboard</a>
-    <a href="#">Projekti</a>
-    <a href="#">Poruke</a>
-    <a href="#">Fajlovi</a>
-    <a href="#">Plaćanja</a>
-    <a href="#">Postavke</a>
-    <a href="/">Logout</a>
+  <div class="login-box" id="loginBox">
+    <h2 class="fw-bold mb-4 text-center">Dobrodošli <span style="color:var(--primary)">Nazad</span></h2>
+
+    <form id="loginForm">
+      <div class="mb-3">
+        <label class="small mb-2 opacity-50">Korisničko ime ili Email</label>
+        <input type="text" class="form-control" id="email" placeholder="admin@pixelstudio.com" required>
+      </div>
+
+      <div class="mb-4">
+        <label class="small mb-2 opacity-50">Lozinka</label>
+        <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" class="btn-pixel">Prijavi se</button>
+
+      <div class="text-center mt-4">
+        <a href="index.html" class="text-white text-decoration-none small opacity-50">← Nazad na početnu</a>
+      </div>
+    </form>
   </div>
 
-  <!-- MAIN -->
-  <div class="main">
-
-    <div class="header">
-      <h2 class="fw-bold">Dashboard</h2>
-      <span class="opacity-50">Dobrodošao nazad</span>
-    </div>
-
-    <!-- CARDS -->
-    <div class="cards">
-      <div class="card-box">
-        <h6 class="opacity-50">Aktivni projekti</h6>
-        <h3>3</h3>
-      </div>
-
-      <div class="card-box">
-        <h6 class="opacity-50">Završeni</h6>
-        <h3>5</h3>
-      </div>
-
-      <div class="card-box">
-        <h6 class="opacity-50">Poruke</h6>
-        <h3>2 nove</h3>
-      </div>
-    </div>
-
-    <!-- PROJECTS -->
-    <div class="glass-box">
-      <h5 class="fw-bold">Projekti</h5>
-
-      <table>
-        <tr>
-          <th>Naziv</th>
-          <th>Status</th>
-          <th>Rok</th>
-        </tr>
-        <tr>
-          <td>Redizajn sajta</td>
-          <td><span class="status in-progress">U izradi</span></td>
-          <td>20 Mar 2026</td>
-        </tr>
-        <tr>
-          <td>E-commerce</td>
-          <td><span class="status done">Završeno</span></td>
-          <td>10 Mar 2026</td>
-        </tr>
-      </table>
-
-    </div>
-
+  <!-- LOADING -->
+  <div class="loading" id="loading" style="display:none;">
+    <div class="spinner"></div>
+    <span class="opacity-50">Prijavljivanje...</span>
   </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const loginBox = document.getElementById('loginBox');
+    const loading = document.getElementById('loading');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Fake login (frontend only)
+      if(email === "admin@pixelstudio.com" && password === "1234") {
+        loginBox.style.display = 'none';
+        loading.style.display = 'flex';
+
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 1500);
+      } else {
+        alert("Pogrešan email ili lozinka");
+      }
+    });
+  </script>
 
 </body>
 </html>
+

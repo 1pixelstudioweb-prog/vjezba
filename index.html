@@ -1,43 +1,296 @@
 <!DOCTYPE html>
 <html lang="sr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PixelStudio | Digitalna Budućnost</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        :root { --primary: #00d2ff; --secondary: #9200ff; --dark-bg: #030712; --glass: rgba(255, 255, 255, 0.03); --border: rgba(255, 255, 255, 0.1); }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
-        body { background-color: var(--dark-bg); color: #ffffff; overflow-x: hidden; }
-        .blob { position: fixed; width: 600px; height: 600px; background: radial-gradient(circle, rgba(146, 0, 255, 0.15) 0%, transparent 70%); z-index: -1; filter: blur(80px); pointer-events: none; transition: transform 0.2s ease-out; }
-        .navbar { backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); padding: 20px 0; z-index: 1050; }
-        .navbar-brand { font-weight: 900; font-size: 1.8rem; letter-spacing: -1px; }
-        .nav-link:hover { color: var(--primary) !important; }
-        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding-top: 100px; }
-        .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; line-height: 1.1; background: linear-gradient(to bottom, #fff 40%, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .btn-pixel { background: #fff; color: #000; padding: 16px 40px; border-radius: 100px; font-weight: 700; text-decoration: none; transition: 0.4s; display: inline-block; }
+        :root {
+            --primary: #00d2ff;
+            --secondary: #9200ff;
+            --dark-bg: #030712;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Pozadinski Gradienti */
+        .blob {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(146, 0, 255, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(80px);
+            pointer-events: none;
+            /* Da ne blokira klikove */
+            transition: transform 0.2s ease-out;
+            /* Glatko praćenje miša */
+        }
+
+        /* Navigacija */
+        .navbar {
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            z-index: 1050;
+            /* Iznad svega */
+        }
+
+        .navbar-brand {
+            font-weight: 900;
+            font-size: 1.8rem;
+            letter-spacing: -1px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary) !important;
+        }
+
+        /* Hero Sekcija */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            background: linear-gradient(to bottom, #fff 40%, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Kartice */
+        .feature-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 32px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Dugmići */
+        .btn-pixel {
+            background: #fff;
+            color: #000;
+            padding: 16px 40px;
+            border-radius: 100px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.4s;
+            display: inline-block;
+        }
+
+        .btn-pixel:hover {
+            transform: scale(1.05);
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* Portfolio */
+        .work-item {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            aspect-ratio: 16/10;
+        }
+
+        .work-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.8s;
+        }
+
+        .work-item:hover .work-img {
+            transform: scale(1.1);
+            filter: brightness(0.6);
+        }
+
+        footer {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+        }
     </style>
 </head>
+
 <body>
+
     <div class="blob" id="blob1" style="top: -10%; left: -10%;"></div>
+    <div class="blob" id="blob2"
+        style="bottom: -10%; right: -10%; background: radial-gradient(circle, rgba(0, 210, 255, 0.1) 0%, transparent 70%);">
+    </div>
+
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
         <div class="container">
-            <a class="navbar-brand text-white" href="/">PIXEL<span style="color:var(--primary)">.</span>STUDIO</a>
+            <a class="navbar-brand text-white" href="index.html">PIXEL<span style="color:var(--primary)">.</span>STUDIO</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto gap-4 align-items-center">
-                    <li class="nav-item"><a href="/login" class="btn btn-outline-primary rounded-pill px-4">Login</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#servisi">Usluge</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#projekti">Projekti</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#kontakt">Kontakt</a></li>
+                    <li class="nav-item">
+                        <a href="login.html" class="btn btn-outline-primary rounded-pill px-4">Login</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <section class="hero text-center">
-        <div class="container" data-aos="zoom-out">
-            <h1 class="mb-4">DIZAJN KOJI <br> PRAVI RAZLIKU.</h1>
-            <a href="/login" class="btn-pixel">Započni Projekat</a>
+
+    <section class="hero">
+        <div class="container text-center">
+            <div data-aos="zoom-out" data-aos-duration="1500">
+                <h1 class="mb-4">DIZAJN KOJI <br> PRAVI RAZLIKU.</h1>
+                <p class="lead text-secondary mb-5 mx-auto" style="max-width: 700px;">
+                    Vrhunski digitalni studio specijalizovan za izradu sajtova koji ne samo da izgledaju dobro, već i
+                    donose rezultate.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="#projekti" class="btn-pixel">Vidi naše radove</a>
+                    <a href="#kontakt" class="btn btn-outline-light rounded-pill px-5 py-3">Kontakt</a>
+                </div>
+            </div>
         </div>
     </section>
+
+    <section id="servisi" class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up">
+                    <div class="feature-card">
+                        <i class="fa-solid fa-code fa-3x mb-4" style="color:var(--primary)"></i>
+                        <h3>Development</h3>
+                        <p class="text-secondary">Najmoderniji kod koristeći React, Next.js i ostale vrhunske alate.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <i class="fa-solid fa-wand-magic-sparkles fa-3x mb-4" style="color:var(--secondary)"></i>
+                        <h3>UI/UX Dizajn</h3>
+                        <p class="text-secondary">Kreiramo vizuelno zapanjujuće interfejse prilagođene vašim
+                            korisnicima.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <i class="fa-solid fa-chart-line fa-3x mb-4" style="color:var(--primary)"></i>
+                        <h3>SEO Optimizacija</h3>
+                        <p class="text-secondary">Budite prvi na pretrazi i dominirajte vašim tržištem uz našu pomoć.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projekti" class="py-5">
+        <div class="container">
+            <h2 class="display-4 fw-bold mb-5" data-aos="fade-right">Istaknuti radovi</h2>
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-up">
+                    <div class="work-item">
+                        <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format"
+                            class="work-img" alt="Projekt 1">
+                    </div>
+                    <h4 class="mt-3">Aplikacija za budućnost</h4>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="work-item">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1000&auto=format"
+                            class="work-img" alt="Projekt 2">
+                    </div>
+                    <h4 class="mt-3">E-commerce Branding</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="kontakt" class="text-center">
+        <div class="container" data-aos="fade-up">
+            <h2 class="display-3 fw-bold mb-4">Imaš ideju? <br> <span style="color:var(--primary)">Hajde da je
+                    ostvarimo.</span></h2>
+            <p class="text-secondary mb-4">Pošalji nam poruku na 1pixelstudioweb@gmail.com</p>
+
+            <div class="d-flex flex-column align-items-center gap-2 mb-5">
+                <div class="mt-3">
+                    <a href="https://instagram.com/pixel_studio_web" class="text-white fs-4"><i
+                            class="fab fa-instagram"></i></a>
+                            <br>
+                                
+                        
+                    <a href="chat.html" class="text-center">
+                    <i class="fa-solid fa-message"></i>
+            </div>
+
+            <hr class="border-secondary opacity-25">
+            <p class="mt-4 text-secondary">&copy; 2026 PixelStudio. Sva prava zadržana.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Inicijalizacija AOS - optimizovano
+        AOS.init({
+            duration: 800,
+            once: true, // Animacija se dešava samo jednom pri skrolu nadole
+        });
+
+        // Efekat praćenja miša - poboljšan
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX - window.innerWidth / 2) / 20;
+            const y = (e.clientY - window.innerHeight / 2) / 20;
+
+            const blob1 = document.getElementById('blob1');
+            const blob2 = document.getElementById('blob2');
+
+            if (blob1) blob1.style.transform = `translate(${x}px, ${y}px)`;
+            if (blob2) blob2.style.transform = `translate(${-x}px, ${-y}px)`;
+        });
+    </script>
+   
+</div>
 </body>
+<head>
 </html>
